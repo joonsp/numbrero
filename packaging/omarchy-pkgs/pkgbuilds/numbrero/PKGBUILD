@@ -8,7 +8,7 @@ license=('MIT')
 depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-wayland' 'xdg-desktop-portal')
 makedepends=('gcc' 'make')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('d43b73bef75c050ee48249ec41814811e9d24e1cc9940286f9ae2e55f0b8ff2d')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
