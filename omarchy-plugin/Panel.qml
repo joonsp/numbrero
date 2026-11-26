@@ -251,7 +251,7 @@ Panel {
             id: openBtn
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
-            label: strings.t("openApp")
+            text: strings.t("openApp")
             onClicked: root.openDesktopApp()
           }
         }
@@ -272,7 +272,9 @@ Panel {
         BorderSurface {
           width: parent.width
           implicitHeight: Math.max(Style.space(110), Math.min(Style.space(220), scratchInput.contentHeight + Style.space(16)))
-          surfaceColor: Qt.rgba(0, 0, 0, 0.25)
+          color: Qt.rgba(0, 0, 0, 0.25)
+          radius: Style.cornerRadius
+          borderSpec: Border.controlSpec("normal", root.foreground, root.accent)
 
           Flickable {
             anchors.fill: parent
@@ -365,7 +367,9 @@ Panel {
               required property var modelData
               implicitWidth: chipText.implicitWidth + Style.space(12)
               implicitHeight: Style.space(22)
-              surfaceColor: Qt.rgba(1, 1, 1, 0.05)
+              color: Qt.rgba(1, 1, 1, 0.05)
+              radius: Style.cornerRadius
+              borderSpec: Border.controlSpec("normal", root.foreground, root.accent)
 
               Text {
                 id: chipText

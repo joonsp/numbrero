@@ -135,6 +135,11 @@ ApplicationWindow {
         Qt.quit()
     }
 
+    function selectSheetAndFocus(index) {
+        backend.selectSheet(index)
+        Qt.callLater(function() { editor.forceActiveFocus() })
+    }
+
     onClosing: function(close) {
         if (backend.hasUnsavedWork && !win.pendingQuit) {
             close.accepted = false
@@ -337,8 +342,7 @@ ApplicationWindow {
                                             if (mouse.button === Qt.MiddleButton) {
                                                 win.requestCloseSheet(index)
                                             } else {
-                                                backend.selectSheet(index)
-                                                editor.forceActiveFocus()
+                                                win.selectSheetAndFocus(index)
                                             }
                                         }
                                         onDoubleClicked: win.openRenameDialog(index)
