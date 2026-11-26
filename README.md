@@ -47,12 +47,10 @@ numbrero skill install
 
 ## Companion Omarchy Shell Plugin
 
-`omarchy-plugin/` provides a bar widget and quick-calc popup (`numbrero.quickcalc`) backed by `numbrero eval --json`:
+[`omarchy-plugin/`](omarchy-plugin/) provides a monochrome bar widget and quick-calc popup (`io.github.joonsp.numbrero`), published separately at <https://github.com/joonsp/omarchy-numbrero>:
 
 ```bash
-omarchy plugin validate ./omarchy-plugin
-cp -r ./omarchy-plugin ~/.config/omarchy/plugins/numbrero.quickcalc
-omarchy plugin enable numbrero.quickcalc
+omarchy plugin add https://github.com/joonsp/omarchy-numbrero.git --enable
 ```
 
 ## Build, Install & Publish
@@ -63,4 +61,4 @@ omarchy plugin enable numbrero.quickcalc
 ./bin/install
 ```
 
-Release packaging templates for `omarchy-pkgs` live under `packaging/omarchy-pkgs/pkgbuilds/numbrero/` (replace `OWNER` with your GitHub username/org and update `sha256sums` for a tagged `v0.1.0` release).
+Release packaging templates for `omarchy-pkgs` live under `packaging/omarchy-pkgs/pkgbuilds/numbrero/` targeting <https://github.com/joonsp/numbrero>.

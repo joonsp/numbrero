@@ -2,6 +2,6 @@
   "source": "local",
   "auto_merge": true,
   "upstream": {
-    "watch": "github:OWNER/numbrero"
+    "watch": "github:joonsp/numbrero"
   }
 }

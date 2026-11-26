@@ -8,8 +8,8 @@ import qs.Ui
 // Bar button + quick-calc popup powered by `numbrero eval --json`.
 Panel {
   id: root
-  moduleName: "numbrero.quickcalc"
-  ipcTarget: "numbrero.quickcalc"
+  moduleName: "io.github.joonsp.numbrero"
+  ipcTarget: "io.github.joonsp.numbrero"
   manageIpc: false
 
   readonly property color foreground: bar ? bar.foreground : Commons.Color.foreground
@@ -19,7 +19,6 @@ Panel {
 
   property string scratchText: "apples = 3\noranges = 5\nfruits = apples + oranges"
   property var lineResults: []
-  property var varChips: []
   property bool binaryMissing: false
   property string copiedBanner: ""
   property string pendingExpr: ""
@@ -82,19 +81,7 @@ Panel {
         }
       }
 
-      var nextVars = []
-      if (parsed.variables && typeof parsed.variables === "object") {
-        var keys = Object.keys(parsed.variables)
-        var vLimit = Math.min(keys.length, 24)
-        for (var k = 0; k < vLimit; k++) {
-          var name = String(keys[k]).slice(0, 48)
-          var val = String(parsed.variables[keys[k]]).slice(0, 64)
-          nextVars.push({ name: name, value: val })
-        }
-      }
-
       lineResults = nextLines
-      varChips = nextVars
     } catch (e) {
       // Ignore malformed partial output
     }
@@ -146,7 +133,7 @@ Panel {
   }
 
   ShellIpc {
-    target: "numbrero.quickcalc"
+    target: "io.github.joonsp.numbrero"
 
     function open(): void { root.open() }
     function close(): void { root.close() }
@@ -161,13 +148,9 @@ Panel {
     bar: root.bar
     tooltipText: strings.t("tooltip")
     iconComponent: Component {
-      Image {
-        source: Qt.resolvedUrl("icon.svg")
-        sourceSize.width: 32
-        sourceSize.height: 32
-        width: 32
-        height: 32
-        smooth: true
+      SombreroIcon {
+        color: root.barForeground
+        iconSize: Style.bar.iconSize
       }
     }
     onPressed: function(b) {
@@ -214,12 +197,9 @@ Panel {
             anchors.verticalCenter: parent.verticalCenter
             spacing: Style.space(8)
 
-            Image {
-              source: Qt.resolvedUrl("icon.svg")
-              sourceSize.width: 18
-              sourceSize.height: 18
-              width: 18
-              height: 18
+            SombreroIcon {
+              color: root.foreground
+              iconSize: Style.space(18)
               anchors.verticalCenter: parent.verticalCenter
             }
 
@@ -349,42 +329,6 @@ Panel {
                 enabled: modelData.result.length > 0
                 cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
                 onClicked: root.copyValue(modelData.result)
-              }
-            }
-          }
-        }
-
-        // Variable chips
-        Flow {
-          width: parent.width
-          spacing: Style.space(6)
-          visible: root.varChips.length > 0
-
-          Repeater {
-            model: root.varChips
-
-            BorderSurface {
-              required property var modelData
-              implicitWidth: chipText.implicitWidth + Style.space(12)
-              implicitHeight: Style.space(22)
-              color: Qt.rgba(1, 1, 1, 0.05)
-              radius: Style.cornerRadius
-              borderSpec: Border.controlSpec("normal", root.foreground, root.accent)
-
-              Text {
-                id: chipText
-                anchors.centerIn: parent
-                textFormat: Text.PlainText
-                text: modelData.name + " = " + modelData.value
-                font.family: "monospace"
-                font.pixelSize: Style.font.caption
-                color: root.foreground
-              }
-
-              MouseArea {
-                anchors.fill: parent
-                cursorShape: Qt.PointingHandCursor
-                onClicked: root.copyValue(modelData.value)
               }
             }
           }
