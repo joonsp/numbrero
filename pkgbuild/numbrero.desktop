@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=Numbrero
+Comment=Fast plain-text variable calculator scratchpad
+Comment[da]=Hurtig almindelig-tekst lommeregner med variabler
+Comment[fi]=Nopea tekstimuotoinen muuttujalaskin
+Comment[es]=Bloc de cálculo rápido con variables en texto plano
+Comment[de]=Schneller Klartext-Rechner mit Variablen
+Comment[fr]=Bloc de calcul rapide avec variables en texte brut
+Exec=numbrero %f
+Icon=numbrero
+Terminal=false
+Categories=Utility;Calculator;
+MimeType=text/plain;
+StartupWMClass=numbrero
